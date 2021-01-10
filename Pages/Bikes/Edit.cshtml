@@ -1,0 +1,84 @@
+﻿@page
+@model Butuza_Elena_Proiect.Pages.Bikes.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Bike</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Bike.ID" />
+            <div class="form-group">
+                <label asp-for="Bike.Series" class="control-label"></label>
+                <input asp-for="Bike.Series" class="form-control" />
+                <span asp-validation-for="Bike.Series" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bike.Brand" class="control-label"></label>
+                <input asp-for="Bike.Brand" class="form-control" />
+                <span asp-validation-for="Bike.Brand" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bike.Price" class="control-label"></label>
+                <input asp-for="Bike.Price" class="form-control" />
+                <span asp-validation-for="Bike.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bike.AparitionDate" class="control-label"></label>
+                <input asp-for="Bike.AparitionDate" class="form-control" />
+                <span asp-validation-for="Bike.AparitionDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bike.Size" class="control-label"></label>
+                <input asp-for="Bike.Size" class="form-control" />
+                <span asp-validation-for="Bike.Size" class="text-danger"></span>
+            </div>
+            <label asp-for="Bike.StoreID" class="control-label">Store Name</label>
+            <select asp-for="Bike.StoreID" class="form-control" asp-items="ViewBag.StoreID">
+            </select>
+            <span asp-validation-for="Bike.StoreID" class="text-danger"></span>
+            <div class="form-group">
+                <div class="table">
+                    <table>
+                        <tr>
+                            @{
+                                int cnt = 0;
+                                foreach (var cat in Model.AssignedCategoryDataList)
+                                {
+                                    if (cnt++ % 3 == 0)
+                                    {
+                                    @:</tr><tr>
+                                    }
+                                    @:<td>
+                                        <input type="checkbox"
+                                               name="selectedCategories"
+                                               value="@cat.CategoryID"
+                                               @(Html.Raw(cat.Assigned ? "checked=\"checked\"" : "")) />
+                                        @cat.CategoryID @: @cat.Name
+                                    @:</td>
+                                }
+                            @:</tr>
+                            }
+                        </table>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
